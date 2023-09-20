@@ -35,14 +35,14 @@ def authenticate(i):
     return build("youtube", "v3", credentials=credentials)
 
 if __name__ == "__main__":
-    api_number = 3
+    api_number = 2
     nb_videos = 5
 
     for i in range(api_number):
         youtube = authenticate(i)
-        titles, secondsVideos = download(youtube, nb_videos, i + 1)
-        print("download fini")
-    
+        titles, secondsVideos = download(youtube, nb_videos, i)
+        print("download  fini")
+        
         montage(nb_videos, secondsVideos)
         print("montage fini")
     

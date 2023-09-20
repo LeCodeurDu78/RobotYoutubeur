@@ -1,7 +1,8 @@
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.http import MediaFileUpload
+from TikTokApi import TikTokApi
 
-def upload(youtube, titles, nb_videos):
+def upload_youtube(youtube, titles, nb_videos):
     for i in range(nb_videos):
         request_body = {
             "part": "snippet,status",
@@ -21,3 +22,6 @@ def upload(youtube, titles, nb_videos):
         video = youtube.videos().insert(part="snippet,status", body=request_body, media_body=media_file).execute()
 
         print("Video uploaded successfully. Video ID:", video["id"])
+
+def upload(youtube, titles, nb_videos):
+    upload_youtube(youtube, titles, nb_videos)

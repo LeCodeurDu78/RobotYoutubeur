@@ -62,10 +62,18 @@ def get_most_viewed_moment(youtube, video_id):
 def download_video(videosId):
     i = 0
     for id in videosId:
-        yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=True,allow_oauth_cache=True)
-        yt.streams.get_lowest_resolution().download(output_path="Videos/", filename=f"youtube{i}_all.mp4")
-        print("Video download")
-        i += 1
+        try: 
+            yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=True, allow_oauth_cache=True)
+            print("Age Restricted:", yt.age_restricted)
+            yt.streams.get_lowest_resolution().download(output_path="Videos/", filename=f"youtube{i}_all.mp4")
+            print("Video download")
+            i += 1
+        except:
+            yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=True, allow_oauth_cache=True)
+            print("Age Restricted:", yt.age_restricted)
+            yt.streams.get_lowest_resolution().download(output_path="Videos/", filename=f"youtube{i}_all.mp4")
+            print("Video download")
+            i += 1
 
 def download(youtube, nb_videos, api_used):
 

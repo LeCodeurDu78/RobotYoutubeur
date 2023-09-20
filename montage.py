@@ -7,7 +7,6 @@ def get_time(secondsVideos ,nb_videos):
     for i in range(nb_videos):
         offset = 15
         secondsEnd = VideoFileClip(f"Videos/youtube{i}_all.mp4").duration
-        print(f"duree de la video : {secondsEnd}")
         secondsStart = 0
 
         if secondsVideos[i] == -1:
@@ -21,10 +20,7 @@ def get_time(secondsVideos ,nb_videos):
 
         secondsStarts.append(secondsStart)
         secondsEnds.append(secondsEnd)
-
-        print(f"debut du clip : {secondsStart}")
-        print(f"fin du clip : {secondsEnd}")
-
+        
     return secondsStarts, secondsEnds
 
 def edit_subclip(secondsStart, secondsEnd, i):
