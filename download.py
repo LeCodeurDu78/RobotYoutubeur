@@ -26,7 +26,6 @@ def get_most_viewed_today(youtube, nb_videos, api_used):
             for _ in range(10):
                 videosId.pop(0)
         
-        print(videosId)
         return videosId
     return ["erreur"]
 
@@ -35,9 +34,9 @@ def get_titles_videos(youtube, videosId, nb_videos):
     for i in range(nb_videos):
         response = youtube.videos().list(id=videosId[i], part="snippet").execute()
         if len(response['items'][0]['snippet']['title']) < 81:
-            titles.append(response['items'][0]['snippet']['title'])
+            titles.append(f"{response['items'][0]['snippet']['title']} : Best Moments")
         else:
-            titles.append(response['items'][0]['snippet']['title'][:80])
+            titles.append(f"{response['items'][0]['snippet']['title'][:80]} : Best Moments")
     return titles
 
 
@@ -63,14 +62,12 @@ def download_video(videosId):
     i = 0
     for id in videosId:
         try: 
-            yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=True, allow_oauth_cache=True)
-            print("Age Restricted:", yt.age_restricted)
+            yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=False, allow_oauth_cache=False)
             yt.streams.get_lowest_resolution().download(output_path="Videos/", filename=f"youtube{i}_all.mp4")
             print("Video download")
             i += 1
         except:
             yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=True, allow_oauth_cache=True)
-            print("Age Restricted:", yt.age_restricted)
             yt.streams.get_lowest_resolution().download(output_path="Videos/", filename=f"youtube{i}_all.mp4")
             print("Video download")
             i += 1

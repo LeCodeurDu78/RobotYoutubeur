@@ -32,17 +32,17 @@ def edit_subclip(secondsStart, secondsEnd, i):
 
     return youtubeClip, anotherClip
 
-def split_screen_video(youtubeClip, anotherClip, i):
+def split_screen_video(youtubeClip, anotherClip, title):
     combined = clips_array([[youtubeClip],
                             [anotherClip]]) 
-    combined.write_videofile(f"Videos/youtube{i}.mp4")
+    combined.write_videofile(f"Videos/{title}.mp4")
     combined.close()
 
-def montage(nb_videos, secondsVideos):
+def montage(nb_videos, secondsVideos, titles):
     secondsStarts, secondsEnds = get_time(secondsVideos, nb_videos)
 
     for i in range(nb_videos):
         youtubeClip, anotherClip = edit_subclip(secondsStarts[i], secondsEnds[i], i)
-        split_screen_video(youtubeClip, anotherClip, i)
+        split_screen_video(youtubeClip, anotherClip, titles[i])
         youtubeClip.close()
         anotherClip.close()

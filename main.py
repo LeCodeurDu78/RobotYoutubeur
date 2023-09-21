@@ -52,3 +52,6 @@ if __name__ == "__main__":
         except:
             upload(youtube, titles, nb_videos)
             print("upload fini")
+
+        for title in titles:
+            os.remove(f"Videos/{title}.mp4")
