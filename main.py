@@ -20,7 +20,11 @@ def authenticate(i):
 
         # Check if the credentials have expired
         if credentials and credentials.expired and credentials.refresh_token:
-            credentials.refresh(Request())
+            try:
+                credentials.refresh(Request())
+            except:
+                os.remove("token/token{i}.pickle")
+                authenticate(i)
 
         else:
             # else auth by google
@@ -38,14 +42,18 @@ if __name__ == "__main__":
     api_number = 2
     nb_videos = 5
 
-    for i in range(api_number):
+    for i in range(api_number - 1):
         youtube = authenticate(i)
         titles, secondsVideos = download(youtube, nb_videos, i)
-        print("download  fini")
+        print("download  fini\n\n")
         
-        montage(nb_videos, secondsVideos)
-        print("montage fini")
-    
+        try:
+            montage(nb_videos, secondsVideos, titles)
+            print("montage fini\n\n")
+        except: 
+            montage(nb_videos, secondsVideos, titles)
+            print("montage fini\n\n")
+
         try :
             upload(youtube, titles, nb_videos)
             print("upload fini")
@@ -53,5 +61,5 @@ if __name__ == "__main__":
             upload(youtube, titles, nb_videos)
             print("upload fini")
 
-        for title in titles:
-            os.remove(f"Videos/{title}.mp4")
+        #for title in titles:
+        #    os.remove(f"Videos/{title}.mp4")

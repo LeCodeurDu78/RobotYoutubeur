@@ -35,7 +35,7 @@ def edit_subclip(secondsStart, secondsEnd, i):
 def split_screen_video(youtubeClip, anotherClip, title):
     combined = clips_array([[youtubeClip],
                             [anotherClip]]) 
-    combined.write_videofile(f"Videos/{title}.mp4")
+    combined.write_videofile(f"Videos/{title}.mp4", codec="libx264")
     combined.close()
 
 def montage(nb_videos, secondsVideos, titles):
