@@ -1,6 +1,5 @@
 # type: ignore
-from isodate import parse_duration
-from pytube import YouTube
+from pytubefix import YouTube
 import datetime
 
 def get_most_viewed_today(youtube, nb_videos, api_used):
@@ -18,6 +17,7 @@ def get_most_viewed_today(youtube, nb_videos, api_used):
         for i in range(nb_videos):
             videosId.append(response['items'][i]['id']['videoId'])
         print(videosId)
+        print("\n")
         
         if api_used == 1:
             for _ in range(5):
@@ -45,8 +45,7 @@ def get_most_viewed_moment(youtube, video_id):
     if 'items' in response:
         
         statistics = response['items'][0]['statistics']
-        
-        total_views = int(statistics['viewCount'])
+
         view_history = statistics.get('dailyViewCount', [])
 
         if view_history:
@@ -62,14 +61,16 @@ def download_video(videosId):
     i = 0
     for id in videosId:
         try: 
+            print("je commence à download")
             yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=False, allow_oauth_cache=False)
             yt.streams.get_lowest_resolution().download(output_path="Videos/", filename=f"youtube{i}_all.mp4")
-            print("Video download")
+            print("Video download\n")
             i += 1
         except:
+            print("je commence à download")
             yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=True, allow_oauth_cache=True)
             yt.streams.get_lowest_resolution().download(output_path="Videos/", filename=f"youtube{i}_all.mp4")
-            print("Video download")
+            print("Video download\n")
             i += 1
 
 def download(youtube, nb_videos, api_used):
