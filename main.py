@@ -18,10 +18,9 @@ def run_local_server(flow):
 def authenticate(i):
     credentials = None
 
-    #if os.path.exists(f"token/token{i}.pickle"):
-    #    with open(f"token/token{i}.pickle", 'rb') as token:
-    #        credentials = pickle.load(token)
-    #        print(credentials.refresh_token)
+    if os.path.exists(f"token/token{i}.pickle"):
+        with open(f"token/token{i}.pickle", 'rb') as token:
+            credentials = pickle.load(token)
 
     if not credentials or not credentials.valid:
 
@@ -81,13 +80,12 @@ def authenticate(i):
                 pickle.dump(credentials, token) 
 
     return build("youtube", "v3", credentials=credentials)
-    
+
 if __name__ == "__main__":
     api_number = 2
     nb_videos = 5
 
     for i in range(api_number - 1):
-        print("\n")
         youtube = authenticate(i)
         titles, secondsVideos = download(youtube, nb_videos, i)
         print("\nDownload fini\n\n")
@@ -103,5 +101,6 @@ if __name__ == "__main__":
             upload(youtube, titles, nb_videos)
             print("Upload fini")
         except:
-            upload(youtube, titles, nb_videos)
-            print("Upload fini")
+        
+        upload(youtube, titles, nb_videos)
+        print("Upload fini")
