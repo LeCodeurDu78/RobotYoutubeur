@@ -74,5 +74,5 @@ def upload_tiktok(titles, nb_videos):
         driver.quit()
 
 def upload(youtube, titles, nb_videos):
-    #upload_youtube(youtube, titles, nb_videos)
+    upload_youtube(youtube, titles, nb_videos)
     upload_tiktok(titles, nb_videos)
