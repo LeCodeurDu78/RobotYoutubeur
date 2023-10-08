@@ -26,7 +26,7 @@ def authenticate(i):
             try:
                 credentials.refresh(Request())
             except:
-                os.remove("token/token{i}.pickle")
+                os.remove(f"token/token{i}.pickle")
                 authenticate(i)
 
         else:

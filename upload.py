@@ -31,6 +31,7 @@ def upload_tiktok(titles, nb_videos):
     for i in range(nb_videos):
         driver = webdriver.Chrome()
 
+        print("ajout des cookies")
         auth = AuthBackend(cookies="client/cookies.txt")
         driver = auth.authenticate_agent(driver)
 
@@ -41,6 +42,7 @@ def upload_tiktok(titles, nb_videos):
         iframe = driver.find_element(By.TAG_NAME, 'iframe')
         driver.switch_to.frame(iframe)
 
+        print("sélection de l'input file")
         input_file = driver.find_element(By.CLASS_NAME, 'jsx-2751257330 ')
         driver.execute_script("arguments[0].style.display = 'block';", input_file)
         
@@ -50,10 +52,13 @@ def upload_tiktok(titles, nb_videos):
 
         file_path = f"/home/adamrespeliers/Code/projet-python/RobotYoutubeur/Videos/{titles[i]}.mp4"
         
+        print("j'entre le chemin de la video")
+        time.sleep(2)
         for c in file_path:
             pynput.keyboard.Controller().press(c)
             time.sleep(0.1)
             pynput.keyboard.Controller().release(c)
+            time.sleep(0.1)
 
         pyautogui.press('enter')
 
@@ -61,6 +66,7 @@ def upload_tiktok(titles, nb_videos):
             EC.invisibility_of_element_located((By.CLASS_NAME, "uploading-container"))
         )
 
+        print("j'attent de pouvoir cliquer sur le bouton next")
         time.sleep(30)
 
         next_button = WebDriverWait(driver, 120).until(
@@ -72,6 +78,8 @@ def upload_tiktok(titles, nb_videos):
         time.sleep(5)
 
         driver.quit()
+        print(f"{titles[i]}\n")
+        print("La video a été uploadée avec succès")
 
 def upload(youtube, titles, nb_videos):
     upload_youtube(youtube, titles, nb_videos)
