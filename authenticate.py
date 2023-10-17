@@ -65,6 +65,8 @@ def pyautogui_connect():
     sleep(7)
     print("je me connecte en tant que Pierre")
     click(564, 445)
+    sleep(3)
+    click(564, 445)
 
     sleep(7)
     print("Je me connecte avec la chaine youtube")

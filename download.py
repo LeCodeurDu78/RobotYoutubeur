@@ -62,7 +62,7 @@ def download_video(videosId):
     for id in videosId:
         try: 
             print("je commence à download")
-            yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=False, allow_oauth_cache=False)
+            yt = YouTube(url=f"https://www.youtube.com/watch?v={id}",use_oauth=True, allow_oauth_cache=True)
             yt.streams.get_lowest_resolution().download(output_path="Videos/", filename=f"youtube{i}_all.mp4")
             print("Video download\n")
             i += 1
